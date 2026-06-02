@@ -59,7 +59,7 @@ const { tags, series, currentSeries } = Astro.props;
 		currentSeries && currentSeries.posts.length > 0 ? (
 			<nav class="aside-block">
 				<p class="aside-heading">
-					<a href={`/series/${currentSeries.slug}/`}>当前系列</a>
+					<a href={`/series/${currentSeries.slug}/`}>{currentSeries.name}</a>
 				</p>
 				<ol class="aside-series-list">
 					{currentSeries.posts.map((item, i) => (
