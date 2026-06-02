@@ -1,5 +1,7 @@
 ---
 import { site } from '../config/site';
+import type { CurrentSeries } from '../utils/blog';
+import { postHref } from '../utils/blog';
 
 interface TagItem {
 	name: string;
@@ -16,9 +18,10 @@ interface SeriesItem {
 interface Props {
 	tags: TagItem[];
 	series: SeriesItem[];
+	currentSeries?: CurrentSeries;
 }
 
-const { tags, series } = Astro.props;
+const { tags, series, currentSeries } = Astro.props;
 ---
 
 <aside class="aside aside-right" aria-label="右侧栏">
@@ -53,22 +56,47 @@ const { tags, series } = Astro.props;
 	}
 
 	{
-		series.length > 0 && (
+		currentSeries && currentSeries.posts.length > 0 ? (
 			<nav class="aside-block">
 				<p class="aside-heading">
-					<a href="/series/">系列</a>
+					<a href={`/series/${currentSeries.slug}/`}>当前系列</a>
 				</p>
-				<ul class="aside-links">
-					{series.map((item) => (
-						<li>
-							<a href={`/series/${item.slug}/`}>
-								{item.name}
-								<span class="aside-meta">{item.count} 篇</span>
-							</a>
+				<ol class="aside-series-list">
+					{currentSeries.posts.map((item, i) => (
+						<li class:list={[{ active: item.id === currentSeries.currentPostId }]}>
+							{item.id === currentSeries.currentPostId ? (
+								<span class="aside-series-current" aria-current="page">
+									<span class="aside-series-order">{i + 1}</span>
+									{item.title}
+								</span>
+							) : (
+								<a href={postHref({ id: item.id })}>
+									<span class="aside-series-order">{i + 1}</span>
+									{item.title}
+								</a>
+							)}
 						</li>
 					))}
-				</ul>
+				</ol>
 			</nav>
+		) : (
+			series.length > 0 && (
+				<nav class="aside-block">
+					<p class="aside-heading">
+						<a href="/series/">系列</a>
+					</p>
+					<ul class="aside-links">
+						{series.map((item) => (
+							<li>
+								<a href={`/series/${item.slug}/`}>
+									{item.name}
+									<span class="aside-meta">{item.count} 篇</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			)
 		)
 	}
 </aside>

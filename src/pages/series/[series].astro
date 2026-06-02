@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../components/BaseLayout.astro';
 import { site } from '../../config/site';
-import { getPostsBySeries, getSortedPosts, postHref, slugToSeries } from '../../utils/blog';
+import { buildCurrentSeries, getPostsBySeries, getSortedPosts, postHref, slugToSeries } from '../../utils/blog';
 
 export async function getStaticPaths() {
 	const posts = await getSortedPosts();
@@ -16,12 +16,14 @@ const { series: seriesSlug } = Astro.params;
 const seriesName = slugToSeries(seriesSlug!);
 const posts = await getSortedPosts();
 const seriesPosts = getPostsBySeries(posts, seriesSlug!);
+const currentSeries = buildCurrentSeries(seriesName, posts);
 ---
 
 <BaseLayout
 	title={`${seriesName} | ${site.series.indexTitle} | ${site.title}`}
 	description={`${site.series.indexTitle}：${seriesName}，共 ${seriesPosts.length} 篇文章`}
 	mainClass="wide"
+	currentSeries={currentSeries}
 >
 	<header class="page-header">
 		<h1>

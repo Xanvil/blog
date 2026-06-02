@@ -9,7 +9,7 @@ export async function getSortedPosts(): Promise<BlogPost[]> {
 	);
 }
 
-export function postHref(post: BlogPost): string {
+export function postHref(post: BlogPost | { id: string }): string {
 	return `/blog/${post.id}/`;
 }
 
@@ -126,5 +126,27 @@ export function getSeriesNavigation(posts: BlogPost[], current: BlogPost) {
 		total: seriesPosts.length,
 		prev: index > 0 ? seriesPosts[index - 1] : null,
 		next: index < seriesPosts.length - 1 ? seriesPosts[index + 1] : null,
+		posts: seriesPosts.map((p) => ({ id: p.id, title: p.data.title })),
+	};
+}
+
+export type CurrentSeries = {
+	name: string;
+	slug: string;
+	currentPostId?: string;
+	posts: { id: string; title: string }[];
+};
+
+export function buildCurrentSeries(
+	seriesName: string,
+	posts: BlogPost[],
+	currentPostId?: string,
+): CurrentSeries {
+	const seriesPosts = sortSeriesPosts(posts.filter((post) => post.data.series === seriesName));
+	return {
+		name: seriesName,
+		slug: seriesToSlug(seriesName),
+		currentPostId,
+		posts: seriesPosts.map((p) => ({ id: p.id, title: p.data.title })),
 	};
 }

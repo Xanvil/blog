@@ -5,15 +5,17 @@ import Header from './Header.astro';
 import LeftAside from './LeftAside.astro';
 import RightAside from './RightAside.astro';
 import { site } from '../config/site';
+import type { CurrentSeries } from '../utils/blog';
 import { getAllSeries, getAllTags, getSortedPosts } from '../utils/blog';
 
 interface Props {
 	title: string;
 	description: string;
 	mainClass?: string;
+	currentSeries?: CurrentSeries;
 }
 
-const { title, description, mainClass } = Astro.props;
+const { title, description, mainClass, currentSeries } = Astro.props;
 const { layout } = site;
 const posts = await getSortedPosts();
 const tags = layout.showRightAside ? getAllTags(posts).slice(0, layout.rightTagCount) : [];
@@ -39,7 +41,9 @@ const useThreeColumn = layout.showLeftAside || layout.showRightAside;
 				<main class:list={['page-content', mainClass]}>
 					<slot />
 				</main>
-				{layout.showRightAside && <RightAside tags={tags} series={series} />}
+				{layout.showRightAside && (
+					<RightAside tags={tags} series={series} currentSeries={currentSeries} />
+				)}
 			</div>
 
 			<footer class="site-footer-wrap">
