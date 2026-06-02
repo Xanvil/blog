@@ -1,0 +1,41 @@
+---
+interface Props {
+	name: string;
+	slug: string;
+	index: number;
+	total: number;
+	prev: { id: string; data: { title: string } } | null;
+	next: { id: string; data: { title: string } } | null;
+}
+
+const { name, slug, index, total, prev, next } = Astro.props;
+---
+
+<nav class="series-nav" aria-label="系列导航">
+	<p class="series-label">
+		<a href={`/series/${slug}/`}>系列：{name}</a>
+		<span class="series-progress">第 {index} / {total} 篇</span>
+	</p>
+	{
+		(prev || next) && (
+			<div class="series-links">
+				{prev ? (
+					<a href={`/blog/${prev.id}/`} class="series-link series-link-prev">
+						<span class="series-link-dir">上一篇</span>
+						<span class="series-link-title">{prev.data.title}</span>
+					</a>
+				) : (
+					<span />
+				)}
+				{next ? (
+					<a href={`/blog/${next.id}/`} class="series-link series-link-next">
+						<span class="series-link-dir">下一篇</span>
+						<span class="series-link-title">{next.data.title}</span>
+					</a>
+				) : (
+					<span />
+				)}
+			</div>
+		)
+	}
+</nav>

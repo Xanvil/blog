@@ -25,6 +25,7 @@ export const site = {
 		{ href: '/', label: '首页' },
 		{ href: '/blog', label: '文章' },
 		{ href: '/tags', label: '分类' },
+		{ href: '/series', label: '系列' },
 		{ href: '/about', label: '关于' },
 	],
 
@@ -33,6 +34,13 @@ export const site = {
 		indexTitle: '文章分类',
 		indexSubtitle: (count: number) => `共 ${count} 个标签`,
 		tagSubtitle: (count: number) => `该分类下共 ${count} 篇`,
+	},
+
+	/** 文章系列（有阅读顺序的多篇文章） */
+	series: {
+		indexTitle: '文章系列',
+		indexSubtitle: (count: number) => `共 ${count} 个系列`,
+		seriesSubtitle: (count: number) => `建议按以下顺序阅读，共 ${count} 篇`,
 	},
 
 	/** 首页区块（改 false 可关闭对应模块） */

@@ -3,6 +3,8 @@ title: '用 Astro 搭建个人博客'
 description: '一篇示例文章，展示 Markdown 写作与代码高亮'
 pubDate: 2026-06-02
 tags: ['Astro', '博客']
+series: 'Astro 博客实战'
+seriesOrder: 1
 ---
 
 这是一篇示例文章。在 `src/content/blog/` 目录下新建 `.md` 文件即可添加文章。

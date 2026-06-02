@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import { site } from '../../config/site';
+import { getAllSeries, getSortedPosts } from '../../utils/blog';
+
+const posts = await getSortedPosts();
+const seriesList = getAllSeries(posts);
+const { series: seriesConfig } = site;
+---
+
+<BaseLayout
+	title={`${seriesConfig.indexTitle} | ${site.title}`}
+	description={site.description}
+	mainClass="wide"
+>
+	<header class="page-header">
+		<h1>{seriesConfig.indexTitle}</h1>
+		<p>{seriesConfig.indexSubtitle(seriesList.length)}</p>
+	</header>
+
+	{
+		seriesList.length === 0 ? (
+			<p class="empty-hint">
+				暂无系列。在文章 frontmatter 中添加 <code>series: '系列名'</code> 和{' '}
+				<code>seriesOrder: 1</code> 即可。
+			</p>
+		) : (
+			<ul class="series-list">
+				{seriesList.map(({ name, slug, count, posts: seriesPosts }) => (
+					<li class="series-item">
+						<a href={`/series/${slug}/`} class="series-item-head">
+							<h2>{name}</h2>
+							<span class="series-item-count">{count} 篇</span>
+						</a>
+						<ol class="series-item-posts">
+							{seriesPosts.map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								</li>
+							))}
+						</ol>
+					</li>
+				))}
+			</ul>
+		)
+	}
+</BaseLayout>

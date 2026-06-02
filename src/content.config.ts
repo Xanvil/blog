@@ -11,6 +11,10 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			tags: z.array(z.string()).default([]),
+			/** 系列名称，同一系列的文章填相同值 */
+			series: z.string().optional(),
+			/** 系列内顺序，数字越小越靠前 */
+			seriesOrder: z.number().optional(),
 		}),
 });
 

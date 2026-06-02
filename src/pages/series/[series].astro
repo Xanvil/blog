@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import { site } from '../../config/site';
+import { getAllSeries, getPostsBySeries, getSortedPosts, slugToSeries } from '../../utils/blog';
+
+export async function getStaticPaths() {
+	const posts = await getSortedPosts();
+	const seriesList = getAllSeries(posts);
+
+	return seriesList.map(({ slug }) => ({
+		params: { series: slug },
+	}));
+}
+
+const { series: seriesSlug } = Astro.params;
+const seriesName = slugToSeries(seriesSlug!);
+const posts = await getSortedPosts();
+const seriesPosts = getPostsBySeries(posts, seriesSlug!);
+---
+
+<BaseLayout
+	title={`${seriesName} | ${site.series.indexTitle} | ${site.title}`}
+	description={`${site.series.indexTitle}：${seriesName}，共 ${seriesPosts.length} 篇文章`}
+	mainClass="wide"
+>
+	<header class="page-header">
+		<h1>
+			<a href="/series/" class="tag-breadcrumb">{site.series.indexTitle}</a>
+			<span class="tag-breadcrumb-sep">/</span>
+			{seriesName}
+		</h1>
+		<p>{site.series.seriesSubtitle(seriesPosts.length)}</p>
+	</header>
+
+	<ol class="series-detail-list">
+		{
+			seriesPosts.map((post, i) => (
+				<li>
+					<span class="series-order">{i + 1}</span>
+					<div class="series-detail-body">
+						<a href={`/blog/${post.id}/`}>
+							<h2>{post.data.title}</h2>
+						</a>
+						<p>{post.data.description}</p>
+					</div>
+				</li>
+			))
+		}
+	</ol>
+</BaseLayout>

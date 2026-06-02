@@ -9,13 +9,29 @@ export async function getSortedPosts(): Promise<BlogPost[]> {
 	);
 }
 
-/** 标签 URL 片段（与 getStaticPaths 的 params.tag 一致） */
 export function tagToSlug(tag: string): string {
 	return tag.trim();
 }
 
 export function slugToTag(slug: string): string {
 	return slug;
+}
+
+export function seriesToSlug(series: string): string {
+	return series.trim();
+}
+
+export function slugToSeries(slug: string): string {
+	return slug;
+}
+
+export function sortSeriesPosts(posts: BlogPost[]): BlogPost[] {
+	return [...posts].sort((a, b) => {
+		const orderA = a.data.seriesOrder ?? Number.MAX_SAFE_INTEGER;
+		const orderB = b.data.seriesOrder ?? Number.MAX_SAFE_INTEGER;
+		if (orderA !== orderB) return orderA - orderB;
+		return a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+	});
 }
 
 export function getAllTags(posts: BlogPost[]): { name: string; slug: string; count: number }[] {
@@ -35,4 +51,49 @@ export function getAllTags(posts: BlogPost[]): { name: string; slug: string; cou
 export function getPostsByTag(posts: BlogPost[], slug: string): BlogPost[] {
 	const tagName = slugToTag(slug);
 	return posts.filter((post) => post.data.tags?.includes(tagName));
+}
+
+export function getAllSeries(
+	posts: BlogPost[],
+): { name: string; slug: string; count: number; posts: BlogPost[] }[] {
+	const groups = new Map<string, BlogPost[]>();
+
+	for (const post of posts) {
+		if (!post.data.series) continue;
+		const list = groups.get(post.data.series) ?? [];
+		list.push(post);
+		groups.set(post.data.series, list);
+	}
+
+	return [...groups.entries()]
+		.map(([name, seriesPosts]) => ({
+			name,
+			slug: seriesToSlug(name),
+			count: seriesPosts.length,
+			posts: sortSeriesPosts(seriesPosts),
+		}))
+		.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
+}
+
+export function getPostsBySeries(posts: BlogPost[], slug: string): BlogPost[] {
+	const seriesName = slugToSeries(slug);
+	return sortSeriesPosts(posts.filter((post) => post.data.series === seriesName));
+}
+
+export function getSeriesNavigation(posts: BlogPost[], current: BlogPost) {
+	const seriesName = current.data.series;
+	if (!seriesName) return null;
+
+	const seriesPosts = sortSeriesPosts(posts.filter((post) => post.data.series === seriesName));
+	const index = seriesPosts.findIndex((post) => post.id === current.id);
+	if (index === -1) return null;
+
+	return {
+		name: seriesName,
+		slug: seriesToSlug(seriesName),
+		index: index + 1,
+		total: seriesPosts.length,
+		prev: index > 0 ? seriesPosts[index - 1] : null,
+		next: index < seriesPosts.length - 1 ? seriesPosts[index + 1] : null,
+	};
 }
