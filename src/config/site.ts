@@ -89,6 +89,14 @@ export const site = {
 
 	/** dark | light —— 影响 meta color-scheme */
 	colorScheme: 'dark' as 'dark' | 'light',
+
+	/** 页面布局：顶栏 + 左栏 + 中间 + 右栏 + 底栏 */
+	layout: {
+		showLeftAside: true,
+		showRightAside: true,
+		rightTagCount: 10,
+		rightSeriesCount: 6,
+	},
 } as const;
 
 export type SiteConfig = typeof site;

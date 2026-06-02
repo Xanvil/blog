@@ -3,13 +3,11 @@ import { site } from '../config/site';
 import HeaderLink from './HeaderLink.astro';
 ---
 
-<header class="site-header">
-	<nav>
-		<a href="/" class="site-logo">{site.title}</a>
-		<div class="nav-links">
-			{site.nav.map((item) => (
-				<HeaderLink href={item.href}>{item.label}</HeaderLink>
-			))}
-		</div>
-	</nav>
-</header>
+<nav class="site-header-inner">
+	<a href="/" class="site-logo">{site.title}</a>
+	<div class="nav-links nav-links--mobile">
+		{site.nav.map((item) => (
+			<HeaderLink href={item.href}>{item.label}</HeaderLink>
+		))}
+	</div>
+</nav>

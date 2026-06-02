@@ -40,8 +40,12 @@
 	--font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
 	/* 布局 */
-	--content-width: 720px;
-	--wide-width: 960px;
+	--shell-max: 1400px;
+	--aside-left-width: 220px;
+	--aside-right-width: 260px;
+	--prose-width: 46rem;
+	--content-width: 100%;
+	--wide-width: 100%;
 	--header-height: 64px;
 	--radius: 12px;
 	--body-size: 17px;

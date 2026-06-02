@@ -1,0 +1,26 @@
+---
+import { site } from '../config/site';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<aside class="aside aside-left" aria-label="左侧导航">
+	<nav class="aside-block">
+		<p class="aside-heading">导航</p>
+		<ul class="aside-links">
+			{site.nav.map((item) => (
+				<li>
+					<HeaderLink href={item.href}>{item.label}</HeaderLink>
+				</li>
+			))}
+		</ul>
+	</nav>
+
+	<nav class="aside-block">
+		<p class="aside-heading">浏览</p>
+		<ul class="aside-links">
+			<li><a href="/blog/">全部文章</a></li>
+			<li><a href="/tags/">文章分类</a></li>
+			<li><a href="/series/">文章系列</a></li>
+		</ul>
+	</nav>
+</aside>

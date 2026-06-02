@@ -2,6 +2,10 @@
 import BaseHead from './BaseHead.astro';
 import Footer from './Footer.astro';
 import Header from './Header.astro';
+import LeftAside from './LeftAside.astro';
+import RightAside from './RightAside.astro';
+import { site } from '../config/site';
+import { getAllSeries, getAllTags, getSortedPosts } from '../utils/blog';
 
 interface Props {
 	title: string;
@@ -10,6 +14,13 @@ interface Props {
 }
 
 const { title, description, mainClass } = Astro.props;
+const { layout } = site;
+const posts = await getSortedPosts();
+const tags = layout.showRightAside ? getAllTags(posts).slice(0, layout.rightTagCount) : [];
+const series = layout.showRightAside
+	? getAllSeries(posts).slice(0, layout.rightSeriesCount)
+	: [];
+const useThreeColumn = layout.showLeftAside || layout.showRightAside;
 ---
 
 <!doctype html>
@@ -17,13 +28,23 @@ const { title, description, mainClass } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} />
 	</head>
-	<body>
+	<body class:list={{ 'layout-three-col': useThreeColumn }}>
 		<div class="page">
-			<Header />
-			<main class:list={mainClass}>
-				<slot />
-			</main>
-			<Footer />
+			<header class="site-header">
+				<Header />
+			</header>
+
+			<div class:list={['page-body', { 'page-body--three-col': useThreeColumn }]}>
+				{layout.showLeftAside && <LeftAside />}
+				<main class:list={['page-content', mainClass]}>
+					<slot />
+				</main>
+				{layout.showRightAside && <RightAside tags={tags} series={series} />}
+			</div>
+
+			<footer class="site-footer-wrap">
+				<Footer />
+			</footer>
 		</div>
 	</body>
 </html>

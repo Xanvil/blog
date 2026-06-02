@@ -1,0 +1,74 @@
+---
+import { site } from '../config/site';
+
+interface TagItem {
+	name: string;
+	slug: string;
+	count: number;
+}
+
+interface SeriesItem {
+	name: string;
+	slug: string;
+	count: number;
+}
+
+interface Props {
+	tags: TagItem[];
+	series: SeriesItem[];
+}
+
+const { tags, series } = Astro.props;
+---
+
+<aside class="aside aside-right" aria-label="右侧栏">
+	<div class="aside-block aside-card">
+		<p class="aside-heading">关于站点</p>
+		<p class="aside-text">{site.description}</p>
+		<p class="aside-text">
+			<a href="/about/">了解更多</a>
+			{' · '}
+			<a href="/rss.xml">RSS</a>
+		</p>
+	</div>
+
+	{
+		tags.length > 0 && (
+			<nav class="aside-block">
+				<p class="aside-heading">
+					<a href="/tags/">分类</a>
+				</p>
+				<ul class="aside-tags">
+					{tags.map((tag) => (
+						<li>
+							<a href={`/tags/${tag.slug}/`} class="tag">
+								{tag.name}
+								<span class="tag-count">{tag.count}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+		)
+	}
+
+	{
+		series.length > 0 && (
+			<nav class="aside-block">
+				<p class="aside-heading">
+					<a href="/series/">系列</a>
+				</p>
+				<ul class="aside-links">
+					{series.map((item) => (
+						<li>
+							<a href={`/series/${item.slug}/`}>
+								{item.name}
+								<span class="aside-meta">{item.count} 篇</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+		)
+	}
+</aside>
