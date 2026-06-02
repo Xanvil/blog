@@ -14,28 +14,26 @@ const { name, slug, index, total, prev, next } = Astro.props;
 ---
 
 <nav class="series-nav" aria-label="系列导航">
-	<p class="series-label">
-		<a href={`/series/${slug}/`}>系列：{name}</a>
-		<span class="series-progress">第 {index} / {total} 篇</span>
-	</p>
+	<span class="series-nav-meta">
+		<a href={`/series/${slug}/`}>{name}</a>
+		<span class="series-nav-index">{index}/{total}</span>
+	</span>
 	{
 		(prev || next) && (
-			<div class="series-links">
+			<div class="series-nav-pager">
 				{prev ? (
-					<a href={postHref(prev)} class="series-link series-link-prev">
-						<span class="series-link-dir">上一篇</span>
-						<span class="series-link-title">{prev.data.title}</span>
+					<a href={postHref(prev)} class="series-nav-item series-nav-prev" title={prev.data.title}>
+						← {prev.data.title}
 					</a>
 				) : (
-					<span />
+					<span class="series-nav-item series-nav-empty" />
 				)}
 				{next ? (
-					<a href={postHref(next)} class="series-link series-link-next">
-						<span class="series-link-dir">下一篇</span>
-						<span class="series-link-title">{next.data.title}</span>
+					<a href={postHref(next)} class="series-nav-item series-nav-next" title={next.data.title}>
+						{next.data.title} →
 					</a>
 				) : (
-					<span />
+					<span class="series-nav-item series-nav-empty" />
 				)}
 			</div>
 		)

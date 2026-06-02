@@ -341,76 +341,67 @@ a:hover {
 	font-size: 0.9em;
 }
 
-/* Series */
+/* Series nav（文章底部） */
 .series-nav {
-	margin-bottom: 2rem;
-	padding: 1rem 1.25rem;
-	background: var(--bg-card);
-	border: 1px solid var(--border);
-	border-radius: var(--radius);
+	margin-top: 2rem;
+	padding: 0.75rem 0;
+	border-top: 1px solid var(--border);
+	font-size: 0.875rem;
 }
 
-article > .series-nav:last-child {
-	margin-top: 2.5rem;
-	margin-bottom: 0;
-}
-
-.series-label {
-	display: flex;
-	flex-wrap: wrap;
+.series-nav-meta {
+	display: inline-flex;
 	align-items: center;
-	gap: 0.5rem 1rem;
-	margin: 0 0 0.75rem;
-	font-size: 0.9rem;
-}
-
-.series-label a {
-	font-weight: 600;
-}
-
-.series-progress {
-	font-family: var(--font-mono);
-	font-size: 0.85em;
+	gap: 0.5rem;
 	color: var(--text-muted);
 }
 
-.series-links {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 0.75rem;
+.series-nav-meta a {
+	font-weight: 500;
+	color: var(--text-muted);
 }
 
-.series-link {
+.series-nav-meta a:hover {
+	color: var(--accent);
+}
+
+.series-nav-index {
+	font-family: var(--font-mono);
+	font-size: 0.85em;
+}
+
+.series-nav-pager {
 	display: flex;
-	flex-direction: column;
-	gap: 0.2rem;
-	padding: 0.65rem 0.85rem;
-	border-radius: 8px;
-	background: var(--bg-elevated);
-	border: 1px solid var(--border);
-	color: inherit;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 0.5rem;
 }
 
-.series-link:hover {
-	border-color: var(--accent);
-	color: inherit;
+.series-nav-item {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: var(--accent);
+	font-size: 0.875rem;
 }
 
-.series-link-next {
+.series-nav-item:hover {
+	color: var(--accent-hover);
+}
+
+.series-nav-prev {
+	text-align: left;
+}
+
+.series-nav-next {
 	text-align: right;
 }
 
-.series-link-dir {
-	font-size: 0.75rem;
-	color: var(--text-muted);
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-}
-
-.series-link-title {
-	font-size: 0.9rem;
-	font-weight: 500;
-	color: var(--text);
+.series-nav-empty {
+	flex: 1;
 }
 
 .series-list {
@@ -513,11 +504,13 @@ article > .series-nav:last-child {
 }
 
 @media (max-width: 640px) {
-	.series-links {
-		grid-template-columns: 1fr;
+	.series-nav-pager {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.35rem;
 	}
 
-	.series-link-next {
+	.series-nav-next {
 		text-align: left;
 	}
 }

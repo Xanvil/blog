@@ -46,8 +46,6 @@ const folderLabel = folder ? (site.folders[folder] ?? folder) : null;
 			<TagList tags={tags} class="article-tags" />
 		</header>
 
-		{seriesNav && <SeriesNav {...seriesNav} />}
-
 		<div class="prose">
 			<slot />
 		</div>
