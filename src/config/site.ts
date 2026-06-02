@@ -62,7 +62,17 @@ export const site = {
 		showReadMore: true,
 		readMoreLabel: '阅读全文 →',
 		featureFirstPost: true,
+		/** 按文件夹分组展示 */
+		groupByFolder: true,
 	},
+
+	/** 文件夹显示名（键 = src/content/blog/ 下的目录名） */
+	folders: {
+		'astro-blog': 'Astro 博客',
+		csharp: 'C#',
+		git: 'Git',
+		meta: '站点说明',
+	} as Record<string, string>,
 
 	/** 页脚 */
 	footer: {

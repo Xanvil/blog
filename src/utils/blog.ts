@@ -9,6 +9,37 @@ export async function getSortedPosts(): Promise<BlogPost[]> {
 	);
 }
 
+export function postHref(post: BlogPost): string {
+	return `/blog/${post.id}/`;
+}
+
+export function getPostFolder(post: BlogPost): string | null {
+	const slash = post.id.indexOf('/');
+	return slash === -1 ? null : post.id.slice(0, slash);
+}
+
+export function getPostsGroupedByFolder(posts: BlogPost[]): { folder: string; posts: BlogPost[] }[] {
+	const groups = new Map<string, BlogPost[]>();
+
+	for (const post of posts) {
+		const folder = getPostFolder(post) ?? '_root';
+		const list = groups.get(folder) ?? [];
+		list.push(post);
+		groups.set(folder, list);
+	}
+
+	const order = [...groups.keys()].sort((a, b) => {
+		if (a === '_root') return 1;
+		if (b === '_root') return -1;
+		return a.localeCompare(b, 'zh-CN');
+	});
+
+	return order.map((folder) => ({
+		folder,
+		posts: groups.get(folder)!.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+	}));
+}
+
 export function tagToSlug(tag: string): string {
 	return tag.trim();
 }

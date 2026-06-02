@@ -1,14 +1,14 @@
 ---
 import BaseLayout from '../../components/BaseLayout.astro';
 import { site } from '../../config/site';
-import { getAllSeries, getPostsBySeries, getSortedPosts, slugToSeries } from '../../utils/blog';
+import { getPostsBySeries, getSortedPosts, postHref, slugToSeries } from '../../utils/blog';
 
 export async function getStaticPaths() {
 	const posts = await getSortedPosts();
-	const seriesList = getAllSeries(posts);
+	const seriesNames = [...new Set(posts.map((p) => p.data.series).filter(Boolean))] as string[];
 
-	return seriesList.map(({ slug }) => ({
-		params: { series: slug },
+	return seriesNames.map((name) => ({
+		params: { series: name.trim() },
 	}));
 }
 
@@ -38,7 +38,7 @@ const seriesPosts = getPostsBySeries(posts, seriesSlug!);
 				<li>
 					<span class="series-order">{i + 1}</span>
 					<div class="series-detail-body">
-						<a href={`/blog/${post.id}/`}>
+						<a href={postHref(post)}>
 							<h2>{post.data.title}</h2>
 						</a>
 						<p>{post.data.description}</p>

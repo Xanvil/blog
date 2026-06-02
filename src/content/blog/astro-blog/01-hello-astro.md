@@ -7,7 +7,7 @@ series: 'Astro 博客实战'
 seriesOrder: 1
 ---
 
-这是一篇示例文章。在 `src/content/blog/` 目录下新建 `.md` 文件即可添加文章。
+这是一篇示例文章。在 `src/content/blog/` 下按文件夹组织，例如本文件位于 `astro-blog/` 目录。
 
 ## 代码示例
 

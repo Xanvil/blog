@@ -472,6 +472,25 @@ article > .series-nav:last-child {
 	color: var(--text-muted);
 }
 
+.folder-group {
+	margin-bottom: 2.5rem;
+}
+
+.folder-group-title {
+	margin: 0 0 1rem;
+	padding-bottom: 0.5rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--text);
+	border-bottom: 1px solid var(--border);
+}
+
+.article-folder {
+	margin: 0 0 0.5rem;
+	font-size: 0.85rem;
+	color: var(--text-muted);
+}
+
 /* Post cards */
 .post-grid {
 	display: grid;

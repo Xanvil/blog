@@ -5,7 +5,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import SeriesNav from '../components/SeriesNav.astro';
 import TagList from '../components/TagList.astro';
 import { site } from '../config/site';
-import { getSeriesNavigation, getSortedPosts } from '../utils/blog';
+import { getPostFolder, getSeriesNavigation, getSortedPosts } from '../utils/blog';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
@@ -15,11 +15,22 @@ const { post } = Astro.props;
 const { title, description, pubDate, updatedDate, tags } = post.data;
 const allPosts = await getSortedPosts();
 const seriesNav = getSeriesNavigation(allPosts, post);
+const folder = getPostFolder(post);
+const folderLabel = folder ? (site.folders[folder] ?? folder) : null;
 ---
 
 <BaseLayout title={`${title} | ${site.title}`} description={description}>
 	<article>
 		<header class="article-header">
+			{
+				folderLabel && (
+					<p class="article-folder">
+						<a href="/blog/">文章</a>
+						<span class="tag-breadcrumb-sep">/</span>
+						<span>{folderLabel}</span>
+					</p>
+				)
+			}
 			<time datetime={pubDate.toISOString()}>
 				<FormattedDate date={pubDate} />
 			</time>

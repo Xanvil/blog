@@ -22,7 +22,7 @@ seriesOrder: 2
 ## 发布流程
 
 ```bash
-# 编辑 src/content/blog/*.md 后
+# 编辑 src/content/blog/ 下对应文件夹中的 .md 后
 git add .
 git commit -m "add: 新文章"
 git push

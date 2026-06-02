@@ -39,5 +39,5 @@ flowchart TB
 | 首页长什么样 | `pages/index.astro`（可整页重写） |
 | 文章列表样式 | `pages/blog/index.astro` + `PostCard.astro` |
 | 单篇文章版式 | `layouts/BlogPost.astro` |
-| 写文章 | `content/blog/*.md` |
+| 写文章 | `content/blog/{文件夹}/*.md` |
 | 完全自己的 CSS | `custom.css` |

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../components/BaseLayout.astro';
 import { site } from '../../config/site';
-import { getAllSeries, getSortedPosts } from '../../utils/blog';
+import { getAllSeries, getSortedPosts, postHref } from '../../utils/blog';
 
 const posts = await getSortedPosts();
 const seriesList = getAllSeries(posts);
@@ -35,7 +35,7 @@ const { series: seriesConfig } = site;
 						<ol class="series-item-posts">
 							{seriesPosts.map((post) => (
 								<li>
-									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+									<a href={postHref(post)}>{post.data.title}</a>
 								</li>
 							))}
 						</ol>

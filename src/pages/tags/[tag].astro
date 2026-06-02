@@ -2,14 +2,14 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import { site } from '../../config/site';
-import { getAllTags, getPostsByTag, getSortedPosts, slugToTag } from '../../utils/blog';
+import { getPostsByTag, getSortedPosts, postHref, slugToTag } from '../../utils/blog';
 
 export async function getStaticPaths() {
 	const posts = await getSortedPosts();
-	const tags = getAllTags(posts);
+	const tags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 
-	return tags.map(({ slug }) => ({
-		params: { tag: slug },
+	return tags.map((tag) => ({
+		params: { tag: tag.trim() },
 	}));
 }
 
@@ -37,7 +37,7 @@ const filtered = getPostsByTag(posts, tagSlug!);
 		{
 			filtered.map((post, i) => (
 				<PostCard
-					href={`/blog/${post.id}/`}
+					href={postHref(post)}
 					title={post.data.title}
 					description={post.data.description}
 					pubDate={post.data.pubDate}

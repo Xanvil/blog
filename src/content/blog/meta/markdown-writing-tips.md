@@ -5,7 +5,22 @@ pubDate: 2026-05-20
 tags: ['Markdown', '博客']
 ---
 
-本站文章放在 `src/content/blog/`，每篇一个 `.md` 文件。
+本站文章放在 `src/content/blog/` 下，**按文件夹分组**，URL 会反映目录结构。
+
+## 目录示例
+
+```text
+src/content/blog/
+├── astro-blog/          → /blog/astro-blog/...
+│   ├── 01-hello-astro.md
+│   └── 02-cloudflare-deploy.md
+├── csharp/
+│   └── discard-pattern.md
+└── git/
+    └── commit-message.md
+```
+
+文件夹名会出现在地址中：`/blog/astro-blog/01-hello-astro/`。
 
 ## Frontmatter 模板
 

@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const blog = defineCollection({
+	// 支持子目录：src/content/blog/astro-blog/01-intro.md
 	loader: glob({ base: './src/content/blog', pattern: '**/*.md' }),
 	schema: () =>
 		z.object({

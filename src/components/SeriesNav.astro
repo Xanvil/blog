@@ -1,4 +1,6 @@
 ---
+import { postHref } from '../utils/blog';
+
 interface Props {
 	name: string;
 	slug: string;
@@ -20,7 +22,7 @@ const { name, slug, index, total, prev, next } = Astro.props;
 		(prev || next) && (
 			<div class="series-links">
 				{prev ? (
-					<a href={`/blog/${prev.id}/`} class="series-link series-link-prev">
+					<a href={postHref(prev)} class="series-link series-link-prev">
 						<span class="series-link-dir">上一篇</span>
 						<span class="series-link-title">{prev.data.title}</span>
 					</a>
@@ -28,7 +30,7 @@ const { name, slug, index, total, prev, next } = Astro.props;
 					<span />
 				)}
 				{next ? (
-					<a href={`/blog/${next.id}/`} class="series-link series-link-next">
+					<a href={postHref(next)} class="series-link series-link-next">
 						<span class="series-link-dir">下一篇</span>
 						<span class="series-link-title">{next.data.title}</span>
 					</a>
