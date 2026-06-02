@@ -1,22 +1,21 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import BaseLayout from '../components/BaseLayout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
-<!doctype html>
-<html lang="zh-CN">
-	<head>
-		<BaseHead title={`关于 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>关于</h1>
-			<p>这里是 LX 的个人开发博客，用来记录学习笔记和技术文章。</p>
-			<p>文章以 Markdown 编写，通过 Git 管理，部署在 Cloudflare Pages。</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title={`关于 | ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+	<header class="page-header">
+		<h1>关于</h1>
+		<p>个人开发笔记与技术文章</p>
+	</header>
+
+	<div class="about-card prose">
+		<p>
+			这里是 <strong>LX</strong> 的个人开发博客，用来记录学习笔记、代码片段和部署实践。
+		</p>
+		<p>文章以 Markdown 编写，通过 Git 管理，托管在 <a href="https://pages.cloudflare.com/">Cloudflare Pages</a>。</p>
+		<p>
+			站点地址：<a href="https://blog.xanvil.cc.cd/">blog.xanvil.cc.cd</a>
+		</p>
+	</div>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	href: string;
+	title: string;
+	description: string;
+	pubDate: Date;
+	featured?: boolean;
+}
+
+const { href, title, description, pubDate, featured = false } = Astro.props;
+---
+
+<article class:list={['post-card', { featured }]}>
+	<a href={href} class="post-card-link">
+		<time datetime={pubDate.toISOString()}>
+			<FormattedDate date={pubDate} />
+		</time>
+		<h2>{title}</h2>
+		<p>{description}</p>
+		<span class="read-more">阅读全文 →</span>
+	</a>
+</article>

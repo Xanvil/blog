@@ -1,9 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
+import BaseLayout from '../../components/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -11,54 +9,23 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
-<!doctype html>
-<html lang="zh-CN">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			ul {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				margin-bottom: 1.5em;
-			}
-			ul li a {
-				text-decoration: none;
-			}
-			.title {
-				margin: 0 0 0.25em;
-				color: rgb(var(--black));
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-				font-size: 0.9em;
-			}
-			ul li a:hover .title {
-				color: rgb(var(--accent));
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<ul>
-				{
-					posts.map((post) => (
-						<li>
-							<a href={`/blog/${post.id}/`}>
-								<h2 class="title">{post.data.title}</h2>
-								<p class="date">
-									<FormattedDate date={post.data.pubDate} />
-								</p>
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title={`文章 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} mainClass="wide">
+	<header class="page-header">
+		<h1>全部文章</h1>
+		<p>共 {posts.length} 篇，按发布时间排序</p>
+	</header>
+
+	<div class="post-grid">
+		{
+			posts.map((post, i) => (
+				<PostCard
+					href={`/blog/${post.id}/`}
+					title={post.data.title}
+					description={post.data.description}
+					pubDate={post.data.pubDate}
+					featured={i === 0}
+				/>
+			))
+		}
+	</div>
+</BaseLayout>
