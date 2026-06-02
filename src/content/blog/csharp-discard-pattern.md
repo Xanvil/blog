@@ -9,7 +9,7 @@ pubDate: 2026-05-28
 ## 解构时忽略字段
 
 ```csharp
-var user = (Id: 1, Name: "LX", Email: "a@b.c");
+var user = (Id: 1, Name: "Xanvil", Email: "a@b.c");
 var (id, _, _) = user;  // 只关心 id
 ```
 

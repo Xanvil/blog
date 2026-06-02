@@ -9,7 +9,7 @@
 
 export const site = {
 	/** 站点名称（导航、首页标题、RSS） */
-	title: 'LX 的开发笔记',
+	title: 'Xanvil 的开发笔记',
 
 	/** SEO 与首页副标题 */
 	description: '记录代码与开发心得的个人博客',
@@ -17,7 +17,7 @@ export const site = {
 	/** 正式域名，需与 astro.config.mjs 中 site 一致 */
 	url: 'https://blog.xanvil.cc.cd',
 
-	author: 'LX',
+	author: 'Xanvil',
 	lang: 'zh-CN',
 
 	/** 顶栏导航，可增删改 */
