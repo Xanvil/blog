@@ -2,17 +2,17 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../components/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { site } from '../../config/site';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<BaseLayout title={`文章 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} mainClass="wide">
+<BaseLayout title={`${site.blog.title} | ${site.title}`} description={site.description} mainClass="wide">
 	<header class="page-header">
-		<h1>全部文章</h1>
-		<p>共 {posts.length} 篇，按发布时间排序</p>
+		<h1>{site.blog.title}</h1>
+		<p>{site.blog.subtitle(posts.length)}</p>
 	</header>
 
 	<div class="post-grid">
@@ -23,7 +23,7 @@ const posts = (await getCollection('blog')).sort(
 					title={post.data.title}
 					description={post.data.description}
 					pubDate={post.data.pubDate}
-					featured={i === 0}
+					featured={site.blog.featureFirstPost && i === 0}
 				/>
 			))
 		}

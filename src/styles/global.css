@@ -1,21 +1,5 @@
-:root {
-	--bg: #0d1117;
-	--bg-elevated: #161b22;
-	--bg-card: #1c2128;
-	--border: #30363d;
-	--text: #e6edf3;
-	--text-muted: #8b949e;
-	--accent: #58a6ff;
-	--accent-soft: rgba(88, 166, 255, 0.15);
-	--accent-glow: rgba(88, 166, 255, 0.35);
-	--gradient-hero: radial-gradient(ellipse 80% 60% at 50% -20%, var(--accent-soft), transparent);
-	--font-sans: 'Noto Sans SC', system-ui, sans-serif;
-	--font-mono: 'JetBrains Mono', ui-monospace, monospace;
-	--radius: 12px;
-	--shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-	--max-width: 720px;
-	--header-height: 64px;
-}
+@import './theme.css';
+@import './custom.css';
 
 *,
 *::before,
@@ -30,8 +14,8 @@ html {
 body {
 	margin: 0;
 	font-family: var(--font-sans);
-	font-size: 17px;
-	line-height: 1.75;
+	font-size: var(--body-size);
+	line-height: var(--line-height);
 	color: var(--text);
 	background: var(--bg);
 	background-image: var(--gradient-hero);
@@ -48,7 +32,7 @@ a {
 }
 
 a:hover {
-	color: #79b8ff;
+	color: var(--accent-hover);
 }
 
 .page {
@@ -59,14 +43,13 @@ a:hover {
 
 main {
 	flex: 1;
-	width: min(var(--max-width), calc(100% - 2rem));
+	width: min(var(--content-width), calc(100% - 2rem));
 	margin: 0 auto;
 	padding: 2rem 0 4rem;
 }
 
 main.wide {
-	--max-width: 960px;
-	width: min(var(--max-width), calc(100% - 2rem));
+	width: min(var(--wide-width), calc(100% - 2rem));
 }
 
 /* Header */
@@ -76,7 +59,7 @@ main.wide {
 	z-index: 100;
 	height: var(--header-height);
 	border-bottom: 1px solid var(--border);
-	background: rgba(13, 17, 23, 0.85);
+	background: color-mix(in srgb, var(--bg) 85%, transparent);
 	backdrop-filter: blur(12px);
 }
 
@@ -416,7 +399,7 @@ main.wide {
 	background: var(--bg-elevated);
 	border: 1px solid var(--border);
 	border-radius: 6px;
-	color: #ff7b72;
+	color: var(--code-inline);
 }
 
 .prose pre {

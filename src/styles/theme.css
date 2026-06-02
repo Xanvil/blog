@@ -1,0 +1,68 @@
+/**
+ * ═══════════════════════════════════════════════════════════
+ *  主题变量 —— 完全自定义外观时，主要改这个文件
+ * ═══════════════════════════════════════════════════════════
+ *
+ *  改颜色：调整 --bg、--accent 等
+ *  改字体：--font-sans、--font-mono（若用 Google Fonts，见 config/site.ts）
+ *  改宽度：--content-width、--wide-width
+ *  改圆角/阴影：--radius、--shadow
+ */
+
+:root {
+	/* 背景 */
+	--bg: #0d1117;
+	--bg-elevated: #161b22;
+	--bg-card: #1c2128;
+
+	/* 文字 */
+	--text: #e6edf3;
+	--text-muted: #8b949e;
+
+	/* 强调色 */
+	--accent: #58a6ff;
+	--accent-hover: #79b8ff;
+	--accent-soft: rgba(88, 166, 255, 0.15);
+	--accent-glow: rgba(88, 166, 255, 0.35);
+	--code-inline: #ff7b72;
+
+	/* 边框与装饰 */
+	--border: #30363d;
+	--gradient-hero: radial-gradient(
+		ellipse 80% 60% at 50% -20%,
+		var(--accent-soft),
+		transparent
+	);
+	--shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+	/* 字体（与 site.ts 中 fontsUrl 配合） */
+	--font-sans: 'Noto Sans SC', system-ui, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+	/* 布局 */
+	--content-width: 720px;
+	--wide-width: 960px;
+	--header-height: 64px;
+	--radius: 12px;
+	--body-size: 17px;
+	--line-height: 1.75;
+}
+
+/* 浅色主题示例：取消下面注释并设 site.colorScheme = 'light' */
+/*
+:root {
+	--bg: #ffffff;
+	--bg-elevated: #f6f8fa;
+	--bg-card: #ffffff;
+	--text: #1f2328;
+	--text-muted: #656d76;
+	--accent: #0969da;
+	--accent-hover: #0550ae;
+	--accent-soft: rgba(9, 105, 218, 0.1);
+	--accent-glow: rgba(9, 105, 218, 0.25);
+	--code-inline: #cf222e;
+	--border: #d0d7de;
+	--gradient-hero: none;
+	--shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+*/

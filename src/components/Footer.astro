@@ -1,10 +1,19 @@
 ---
+import { site } from '../config/site';
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
 	<p>
-		&copy; {year} LX ·
-		<a href="/rss.xml">RSS</a>
+		{site.footer.copyright(year, site.author)}
+		{
+			site.footer.links.map((link, i) => (
+				<>
+					{i === 0 ? ' · ' : ' · '}
+					<a href={link.href}>{link.label}</a>
+				</>
+			))
+		}
 	</p>
 </footer>

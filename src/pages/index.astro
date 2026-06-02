@@ -2,33 +2,48 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../components/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { site } from '../config/site';
 
-const posts = (await getCollection('blog'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+const { home } = site;
+const posts = home.showRecentPosts
+	? (await getCollection('blog'))
+			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+			.slice(0, home.recentCount)
+	: [];
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} mainClass="wide">
-	<section class="hero">
-		<span class="hero-badge">Dev Blog</span>
-		<h1>{SITE_TITLE}</h1>
-		<p>{SITE_DESCRIPTION}</p>
-		<a href="/blog/" class="btn">浏览全部文章</a>
-	</section>
+<BaseLayout title={site.title} description={site.description} mainClass="wide">
+	{
+		home.showHero && (
+			<section class="hero">
+				{home.badge && <span class="hero-badge">{home.badge}</span>}
+				<h1>{site.title}</h1>
+				<p>{site.description}</p>
+				<a href={home.ctaHref} class="btn">
+					{home.ctaLabel}
+				</a>
+			</section>
+		)
+	}
 
-	<h2 class="section-title">最新文章</h2>
-	<div class="post-grid">
-		{
-			posts.map((post, i) => (
-				<PostCard
-					href={`/blog/${post.id}/`}
-					title={post.data.title}
-					description={post.data.description}
-					pubDate={post.data.pubDate}
-					featured={i === 0}
-				/>
-			))
-		}
-	</div>
+	{
+		home.showRecentPosts && posts.length > 0 && (
+			<>
+				<h2 class="section-title">{home.recentTitle}</h2>
+				<div class="post-grid">
+					{
+						posts.map((post, i) => (
+							<PostCard
+								href={`/blog/${post.id}/`}
+								title={post.data.title}
+								description={post.data.description}
+								pubDate={post.data.pubDate}
+								featured={site.blog.featureFirstPost && i === 0}
+							/>
+						))
+					}
+				</div>
+			</>
+		)
+	}
 </BaseLayout>

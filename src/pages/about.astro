@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../components/BaseLayout.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { site } from '../config/site';
 ---
 
-<BaseLayout title={`关于 | ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+<BaseLayout title={`关于 | ${site.title}`} description={site.description}>
 	<header class="page-header">
 		<h1>关于</h1>
 		<p>个人开发笔记与技术文章</p>
@@ -11,11 +11,11 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 	<div class="about-card prose">
 		<p>
-			这里是 <strong>LX</strong> 的个人开发博客，用来记录学习笔记、代码片段和部署实践。
+			这里是 <strong>{site.author}</strong> 的个人开发博客，用来记录学习笔记、代码片段和部署实践。
 		</p>
 		<p>文章以 Markdown 编写，通过 Git 管理，托管在 <a href="https://pages.cloudflare.com/">Cloudflare Pages</a>。</p>
 		<p>
-			站点地址：<a href="https://blog.xanvil.cc.cd/">blog.xanvil.cc.cd</a>
+			站点地址：<a href={site.url}>{site.url.replace(/^https?:\/\//, '')}</a>
 		</p>
 	</div>
 </BaseLayout>
