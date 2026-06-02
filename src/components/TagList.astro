@@ -1,0 +1,24 @@
+---
+import { tagToSlug } from '../utils/blog';
+
+interface Props {
+	tags?: string[];
+	class?: string;
+}
+
+const { tags = [], class: className } = Astro.props;
+---
+
+{
+	tags.length > 0 && (
+		<ul class:list={['tag-list', className]}>
+			{tags.map((tag) => (
+				<li>
+					<a href={`/tags/${tagToSlug(tag)}/`} class="tag">
+						{tag}
+					</a>
+				</li>
+			))}
+		</ul>
+	)
+}

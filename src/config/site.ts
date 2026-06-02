@@ -24,8 +24,16 @@ export const site = {
 	nav: [
 		{ href: '/', label: '首页' },
 		{ href: '/blog', label: '文章' },
+		{ href: '/tags', label: '分类' },
 		{ href: '/about', label: '关于' },
 	],
+
+	/** 标签 / 分类 */
+	tags: {
+		indexTitle: '文章分类',
+		indexSubtitle: (count: number) => `共 ${count} 个标签`,
+		tagSubtitle: (count: number) => `该分类下共 ${count} 篇`,
+	},
 
 	/** 首页区块（改 false 可关闭对应模块） */
 	home: {

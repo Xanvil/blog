@@ -2,6 +2,7 @@
 title: '将 Astro 博客部署到 Cloudflare Pages'
 description: 'Git 集成、构建配置与环境变量说明'
 pubDate: 2026-06-01
+tags: ['Astro', 'Cloudflare', '部署']
 ---
 
 本站托管在 [Cloudflare Pages](https://pages.cloudflare.com/)，域名是 `blog.xanvil.cc.cd`。

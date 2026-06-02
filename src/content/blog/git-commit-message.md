@@ -2,6 +2,7 @@
 title: '写好 Git 提交说明'
 description: '用简短、可读的 commit message 维护项目历史'
 pubDate: 2026-05-25
+tags: ['Git']
 ---
 
 清晰的提交说明能帮助未来的自己（和协作者）快速理解每次改动的目的。

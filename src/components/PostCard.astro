@@ -1,16 +1,18 @@
 ---
 import { site } from '../config/site';
 import FormattedDate from './FormattedDate.astro';
+import TagList from './TagList.astro';
 
 interface Props {
 	href: string;
 	title: string;
 	description: string;
 	pubDate: Date;
+	tags?: string[];
 	featured?: boolean;
 }
 
-const { href, title, description, pubDate, featured = false } = Astro.props;
+const { href, title, description, pubDate, tags = [], featured = false } = Astro.props;
 const { showDescription, showReadMore, readMoreLabel } = site.blog;
 ---
 
@@ -23,4 +25,5 @@ const { showDescription, showReadMore, readMoreLabel } = site.blog;
 		{showDescription && description && <p>{description}</p>}
 		{showReadMore && <span class="read-more">{readMoreLabel}</span>}
 	</a>
+	{tags.length > 0 && <TagList tags={tags} class="post-card-tags" />}
 </article>

@@ -2,6 +2,7 @@
 title: '技术博客 Markdown 写作备忘'
 description: '常用语法与排版习惯'
 pubDate: 2026-05-20
+tags: ['Markdown', '博客']
 ---
 
 本站文章放在 `src/content/blog/`，每篇一个 `.md` 文件。
@@ -14,6 +15,7 @@ title: '文章标题'
 description: '一句话摘要，用于 SEO'
 pubDate: 2026-06-02
 updatedDate: 2026-06-03   # 可选
+tags: ['标签一', '标签二']   # 可选，用于分类导航
 ---
 ```
 

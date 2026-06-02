@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { site } from '../../config/site';
+import { getAllTags, getPostsByTag, getSortedPosts, slugToTag } from '../../utils/blog';
+
+export async function getStaticPaths() {
+	const posts = await getSortedPosts();
+	const tags = getAllTags(posts);
+
+	return tags.map(({ slug }) => ({
+		params: { tag: slug },
+	}));
+}
+
+const { tag: tagSlug } = Astro.params;
+const tagName = slugToTag(tagSlug!);
+const posts = await getSortedPosts();
+const filtered = getPostsByTag(posts, tagSlug!);
+---
+
+<BaseLayout
+	title={`${tagName} | ${site.tags.indexTitle} | ${site.title}`}
+	description={`${site.tags.indexTitle}：${tagName}，共 ${filtered.length} 篇文章`}
+	mainClass="wide"
+>
+	<header class="page-header">
+		<h1>
+			<a href="/tags/" class="tag-breadcrumb">{site.tags.indexTitle}</a>
+			<span class="tag-breadcrumb-sep">/</span>
+			{tagName}
+		</h1>
+		<p>{site.tags.tagSubtitle(filtered.length)}</p>
+	</header>
+
+	<div class="post-grid">
+		{
+			filtered.map((post, i) => (
+				<PostCard
+					href={`/blog/${post.id}/`}
+					title={post.data.title}
+					description={post.data.description}
+					pubDate={post.data.pubDate}
+					tags={post.data.tags}
+					featured={site.blog.featureFirstPost && i === 0}
+				/>
+			))
+		}
+	</div>
+</BaseLayout>

@@ -2,11 +2,12 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../components/BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import TagList from '../components/TagList.astro';
 import { site } from '../config/site';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, pubDate, updatedDate, tags } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | ${site.title}`} description={description}>
@@ -24,6 +25,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 			}
 			<h1>{title}</h1>
 			<p class="description">{description}</p>
+			<TagList tags={tags} class="article-tags" />
 		</header>
 		<div class="prose">
 			<slot />

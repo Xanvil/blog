@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import { site } from '../../config/site';
+import { getAllTags, getSortedPosts } from '../../utils/blog';
+
+const posts = await getSortedPosts();
+const tags = getAllTags(posts);
+const { tags: tagsConfig } = site;
+---
+
+<BaseLayout
+	title={`${tagsConfig.indexTitle} | ${site.title}`}
+	description={site.description}
+	mainClass="wide"
+>
+	<header class="page-header">
+		<h1>{tagsConfig.indexTitle}</h1>
+		<p>{tagsConfig.indexSubtitle(tags.length)}</p>
+	</header>
+
+	{
+		tags.length === 0 ? (
+			<p class="empty-hint">暂无分类。在文章 frontmatter 中添加 <code>tags: ['标签名']</code> 即可。</p>
+		) : (
+			<ul class="tag-cloud">
+				{tags.map(({ name, slug, count }) => (
+					<li>
+						<a href={`/tags/${slug}/`} class="tag tag-lg">
+							{name}
+							<span class="tag-count">{count}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		)
+	}
+</BaseLayout>
