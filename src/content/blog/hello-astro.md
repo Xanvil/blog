@@ -22,7 +22,7 @@ console.log(greet('Cloudflare'));
 
 - 本地预览：`npm run dev`
 - 构建站点：`npm run build`
-- 发布：推送到 GitHub，Cloudflare Pages 自动部署
+- 发布：推送到 GitHub，Cloudflare Pages 自动部署到 [blog.xanvil.cc.cd](https://blog.xanvil.cc.cd/)
 
 > 简单、快速、无评论——专注写作本身。
 
