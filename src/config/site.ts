@@ -69,6 +69,7 @@ export const site = {
 	/** 文件夹显示名（键 = src/content/blog/ 下的目录名） */
 	folders: {
 		'astro-blog': 'Astro 博客',
+		'autocad-learn': 'AutoCAD二次开发学习',
 		csharp: 'C#',
 		git: 'Git',
 		meta: '站点说明',
